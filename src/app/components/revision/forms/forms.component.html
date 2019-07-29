@@ -1,0 +1,149 @@
+<form #createUser="ngForm">
+        <div
+          class="modal fade"
+          id="modalRegisterForm"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          aria-hidden="false"
+          data-backdrop="static"
+          #modalRegister
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">{{recievedEmpData._id?"Update Form":"Add Form"}}</h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  (click)="closeModal()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <!-- <span *ngIf="name.errors?.pattern && name.dirty">Enter namasdsae</span> -->
+                  <span *ngIf="name.errors?.minlength">Enter vLID LENGTH</span>
+                  <input
+                    type="email"
+                    class="form-control validate"
+                    [(ngModel)]="recievedEmpData.fullName"
+                    name="fullName"
+                    maxlength="16"
+                    minlength="6"
+                    #name="ngModel"
+                  />
+                  <label
+                    data-error="wrong"
+                    data-success="rigemailht"
+                    for="revisionForm-email"
+                    >fullName</label
+                  >
+                  <!-- <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty"> -->
+                  <!--pattern="^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$"-->
+                </div>
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <span *ngIf="email.errors?.required && email.dirty"
+                    >Enter email</span
+                  >
+                  <input
+                    type="email"
+                    class="form-control validate"
+                    [(ngModel)]="recievedEmpData.email"
+                    name="email"
+                    minlength="10"
+                    maxlength="100"
+                    #email="ngModel"
+                    required
+                  />
+                  <label
+                    data-error="wrong"
+                    data-success="rigemailht"
+                    for="revisionForm-email"
+                    >email</label
+                  >
+                </div>
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input
+                    type="email"
+                    required
+                    class="form-control validate"
+                    [(ngModel)]="recievedEmpData.gender"
+                    name="gender"
+                    #CONTACT="ngModel"
+                  />
+                  <label
+                    data-error="wrong"
+                    data-success="rigemailht"
+                    for="revisionForm-email"
+                    >gender</label
+                  >
+                </div>
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input
+                    type="email"
+                    class="form-control validate"
+                    [(ngModel)]="recievedEmpData.address"
+                    name="address"
+                  />
+                  <label
+                    data-error="wrong"
+                    data-success="rigemailht"
+                    for="revisionForm-email"
+                    >addredd</label
+                  >
+                </div>
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input
+                    placeholder="Selected date"
+                    type="date"
+                    class="form-control datepicker"
+                    [ngModel]="recievedEmpData.DoB | date:'yyyy-MM-dd'"
+                    (ngModelChange)="recievedEmpData.DoB=$event"
+                    name="DOB"
+                  />
+                  <label for="date-picker-example">DoB</label>
+                </div>
+      
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input
+                    placeholder="isadmin"
+                    [(ngModel)]="recievedEmpData.isadmin"
+                    name="isadmin"
+                  />
+                  <label>isadmin</label>
+                </div>
+                <div class="md-form mb-5" *ngIf="!recievedEmpData._id">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input
+                      placeholder="password"
+                      [(ngModel)]="recievedEmpData.password"
+                      name="password"
+                    />
+                    <label>password</label>
+                  </div>
+              </div>
+              {{errorMsg}}
+              <div class="modal-footer d-flex justify-content-center">
+                <button
+                  class="btn btn-deep-orange"
+                  (click)=" clickhandler(recievedEmpData)"
+                  [disabled]="createUser.invalid"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      

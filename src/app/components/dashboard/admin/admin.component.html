@@ -1,0 +1,204 @@
+<div class="row">
+  <div class="col-sm-3">
+    <button
+      class="addNew"
+      data-toggle="modal"
+      data-target="#modalRegisterForm"
+      appHighlight
+    >
+      ADD new user
+    </button>
+    <button class="sortBtn">
+      <a
+        class=" dropdown-toggle"
+        href="#"
+        id="navbarDropdownMenuLink"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        sort
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" (click)="nameSortAsc()">nameSortAsc</a>
+        <a class="dropdown-item" (click)="nameSortDsc()">nameSortDsc</a>
+        <a class="dropdown-item" (click)="joinedDateSortAsc()"
+          >joinedDateSortAsc</a
+        >
+        <a class="dropdown-item" (click)="joinedDateSortDsc()"
+          >joinedDateSortDsc</a
+        >
+      </div>
+    </button>
+    <button [routerLink]="['/dash/revision']">Revision</button>
+  </div>
+  <div class="col-sm-3">
+    <input
+      type="text"
+      id="searchInput"
+      (keyup)="searchFunction($event)"
+      placeholder="Search for names.."
+      title="Type in a name"
+      [(ngModel)]="searchKeyword"
+    />
+  </div>
+  <div>
+    <button (click)="checkMultiple()">Select multiple</button>
+    <button (click)="deleteMultiple()">deleteMultipel</button>
+  </div>
+</div>
+  <loading-spinner [loading]="loading" ></loading-spinner>
+
+<table class="table table-striped" id="empTable">
+  
+
+  <thead class="thead-dark">
+    <tr>
+      <!-- <input type="button" value="EmpLeaveList" onclick="window.location.href = 'http://localhost:4200/admin';" /> -->
+    </tr>
+
+    <tr>
+      <th>Sn</th>
+      <th>Name</th>
+      <th>email</th>
+      <th>ratings</th>
+      <th>gender</th>
+      <th>address</th>
+      <th>isadmin</th>
+      <th>DoB</th>
+      <th>joinedDate</th>
+      <th>leaveDetails</th>
+      <th>update</th>
+      <th>delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="item"
+      *ngFor="
+        let emp of emplist | paginate: { itemsPerPage: 12, currentPage: p };
+        let i = index
+      "
+    >
+      <td>{{ 12 * (p - 1) + i + 1 }}</td>
+      <td appHgts
+        (click)="sendUserDetail(emp)"
+        [routerLink]="['/dash/details', emp._id]"
+        id="empName"
+        style="background-color:lightslategray;color:white;"
+        
+      >
+        {{ emp.fullName }}
+      </td>
+      <td appHgts>{{ emp.email }}</td>
+      <td><rating [(ngModel)]="emp.ratings"
+        [max]="5"
+       
+        [readonly]="true"
+        [disabled]="false"
+        [required]="true"
+        [float]="true"
+        [titles]="['one', 'two', 'three', 'four', 'five']">
+</rating></td>
+      <td >{{ emp.gender }}</td>
+      <td>{{ emp.address }}</td>
+      <td>
+        <input
+          type="checkbox"
+          style="opacity: 10;pointer-events: auto;"
+          (change)="adminUpdate(emp, $event.target.checked)"
+          [checked]="emp.isadmin"
+        />
+      </td>
+      <td>{{ emp.DoB | date }}</td>
+      <td>{{ emp.joinedDate | date }}</td>
+      <td>
+        <button
+          data-toggle="modal"
+          data-target="#modaltable"
+          (click)="particularEmpLeaveList(emp)"
+        >
+          leaveDetails
+        </button>
+      </td>
+      <td >
+        <button
+          data-toggle="modal"
+          data-target="#modalRegisterForm"
+          (click)="editBind(emp)"
+        >
+          edit
+        </button>
+      </td>
+      <td>
+        <button (click)="delete(emp._id, i)" *ngIf="!selectMultiple">
+          delete
+        </button>
+      </td>
+      <td *ngIf="selectMultiple">
+        <input
+          type="checkbox"
+          style="opacity: 10;pointer-events: auto;"
+          (change)=" multipleChecked(emp._id,i,$event.target.checked)"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+<div
+  class="modal fade"
+  id="modaltable"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Leave list</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <thead>
+            <tr>
+              <th>employeeName</th>
+              <th>email</th>
+              <th>LeaveDate</th>
+              <th>ReturnDate</th>
+              <th>Description</th>
+              <th>Approved</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of leaveList; let i = index">
+              <td>{{ list.employeeName }}</td>
+              <td>{{ list.email }}</td>
+              <td>{{ list.LeaveDate }}</td>
+              <td>{{ list.ReturnDate }}</td>
+              <td>{{ list.Description }}</td>
+              <td>{{ list.Approved }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div toastContainer></div>
+<app-hero-detail
+  [NewUser]="editUser"
+  (newData)="receivedData($event)"
+></app-hero-detail>
+<div toastContainer></div>

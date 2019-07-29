@@ -1,0 +1,41 @@
+<table>
+    <thead>
+        <tr>
+      <th>Sn</th>
+      <th >Name </th>
+      <th>email</th>
+      <th>gender</th>
+      <th>address</th>
+      <th>isadmin</th>
+      <th>DoB</th>
+      <th>joinedDate</th>
+      <th>leaveDetails</th>
+      <th>update</th>
+      <th>delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of empList; let i=index ">
+            <td>{{i}}</td>
+        <td>{{emp.fullName}}</td>
+        <td>{{emp.email}}</td>
+        <td>{{emp.gender}}</td>
+        <td>{{emp.address}}</td>
+        <td>{{emp.isadmin}}</td>
+        <td>{{emp.DoB}}</td>
+        <td>{{emp.joinedDate}}</td>
+        <td>leaveDetails</td>
+        <td> <button
+            data-toggle="modal"
+            data-target="#modalRegisterForm"
+            (click)="editBind(emp)"
+          >
+            edit
+          </button></td>
+          <td><button
+            (click)="deleteEmp(emp,i)">Delete</button></td>
+    </tr>
+    </tbody>
+</table>
+<app-forms [empData]="editUser"></app-forms>
+

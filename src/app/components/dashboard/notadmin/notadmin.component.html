@@ -1,0 +1,118 @@
+<div>
+  <button data-toggle="modal" data-target="#modalLeavetable">
+    Apply leave
+  </button>
+</div>
+
+<div
+  class="container"
+  class="modal fade"
+  id="modalLeavetable"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="false"
+  data-backdrop="static"
+>
+  <form #createLeave="ngForm">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div>
+          Apply Leave
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Description</label>
+          <input
+            name="Description"
+            type="text"
+            class="form-control"
+            id="formGroupExampleInput"
+            placeholder="Description"
+            [(ngModel)]="newLeave.Description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Leave Date</label>
+          <input
+            name="LeaveDate"
+            type="date"
+            class="form-control"
+            id="formGroupExampleInput2"
+            placeholder="Leave Date"
+            [(ngModel)]="newLeave.LeaveDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Return Datel</label>
+          <input
+            name="ReturnDate"
+            type="date"
+            class="form-control"
+            id="formGroupExampleInput2"
+            placeholder="Return Date"
+            [(ngModel)]="newLeave.ReturnDate"
+          />
+        </div>
+        {{ message }}
+        <div class="modal-footer d-flex justify-content-center">
+          <button
+            class="btn btn-deep-orange"
+            (click)="submitLeave(newLeave)"
+            [disabled]="createLeave.invalid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Sn</th>
+      <th scope="col">Approved status</th>
+      <th scope="col">LeaveDate</th>
+      <th scope="col">ReturnDate</th>
+      <th scope="col">Description</th>
+      <th scope="col">Applied Date</th>
+      <th scope="col">Reviewed at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let list of allLeaveList; let i = index"
+      [ngClass]="
+        list.Approved == 'true'
+          ? 'bg-success'
+          : list.Approved == 'pending'
+          ? 'test'
+          : 'bg-danger'
+      "
+    >
+      <td>{{ i + 1 }}</td>
+      <td>
+        {{ list.Approved | approvePipe }}
+        <!-- <p  [ngClass]="applyCss(list.Approved)">{{list.Approved | approvePipe }}</p>  </td> -->
+      </td>
+
+      <td>{{ list.LeaveDate | date }}</td>
+      <td>{{ list.ReturnDate | date }}</td>
+
+      <td>{{ list.Description }}</td>
+
+      <td>{{ list.createdAt | date }}</td>
+      <td>{{ list.updatedAt | date }}</td>
+    </tr>
+  </tbody>
+</table>

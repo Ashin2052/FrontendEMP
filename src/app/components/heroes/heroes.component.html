@@ -1,0 +1,42 @@
+ <h2>My Heroes</h2>
+ <p><button onclick="sortTable()">Sort</button></p>
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm">
+    <tr>
+      <th >id</th>
+      <th >name</th>
+      <th >email</th>
+      <th >address</th>
+
+      <th >contact</th>
+
+      <th >DOB</th>
+
+    </tr>
+    <tr (click)="clickHero(her)" *ngFor="let her of heroes; let i = index">
+      <td >{{her.id}}</td> 
+      <td >{{her.name}}</td> 
+      <td >{{her.email}}</td> 
+      <td >{{her.address}}</td> 
+      <td >{{her.contact}}</td> 
+
+      <td >{{her.DOB}}</td> 
+
+     <td> <button (click)="openModal(her.id)" data-toggle="modal" data-target="#modalRegisterForm">edit</button></td> 
+      <td><button on-click="delete(her,i)">delete</button></td>
+    </tr>
+</table>
+<th><button  class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm" (click)="openModal()">add</button></th>
+<app-hero-detail [NewUser]="newUser" (newData)="receivedData($event)"></app-hero-detail>
+<hero-info [Hero]="sendHeroToChild"></hero-info>
+<!-- <div class="text-center">
+  <a href=""  class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm"  >Launch
+    Modal Register Form</a>
+</div> -->
+<!-- <ul class="heroes">
+  <li *ngFor="let hero of heroes"
+    (click)="onSelect(hero)">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+<app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
+<!-- <app-child [hero]="heroes"></app-child> -->

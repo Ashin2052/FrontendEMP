@@ -1,0 +1,39 @@
+
+<table>
+<thead>
+    <tr>
+        <th>employeeName</th>
+        <th>email</th>
+        <th>LeaveDate</th>
+        <th>ReturnDate</th>
+        <th>Description</th>
+        <th>showDetails</th>
+        <th>Approved</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor='let list of allEmpLeaveList; let i= index'>
+        <td>{{list.employeeName}}</td>
+        <td>{{list.email}}</td>
+        <td>{{list.LeaveDate}}</td>
+        <td>{{list.ReturnDate}}</td>
+        <td>{{list.Description}}</td>
+        <td>
+                <a (click)="showDetails(list)" style="cursor:pointer;color:red">
+                  {{ flag ? "Hide Details" : "Show Details" }}</a
+                >
+              </td>
+        <td>
+                <select
+                class="form-control"
+                [(ngModel)]="list.Approved"
+                (change)="leaveStatus(list._id, $event.target.value)"
+              >
+                <option value="pending">Pending</option>
+                <option value="true" style="color:green">Approved</option>
+                <option value="false">Denied</option>
+              </select>
+        </td>
+    </tr>
+</tbody>
+</table>

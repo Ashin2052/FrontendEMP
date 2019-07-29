@@ -1,0 +1,16 @@
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">{{userDetails.fullName}}</li>
+    <li class="list-group-item">{{userDetails.email}}</li>
+    <li class="list-group-item">{{userDetails.gender}}</li>
+    <li class="list-group-item">{{userDetails.isadmin}}</li>
+    <li class="list-group-item">{{userDetails.address}}</li>
+    <li class="list-group-item">{{userDetails.contact}}</li>
+<li><button (click)="editDetails(userDetails)" class="row-lg-6 row-md-6"
+    data-toggle="modal"
+    data-target="#modalRegisterForm" >Eidt this details</button></li>
+  </ul>
+
+  <app-hero-detail
+  [NewUser]="userDetails"
+  (newData)="receivedData($event)"
+></app-hero-detail>

@@ -1,0 +1,20 @@
+#empName:hover {
+    background-color: grey;
+    color: azure;
+}
+
+.addNew{
+padding: 11px;
+}
+.addNew:hover{
+background-color: darkgray;    }
+.sortBtn{
+padding:10.5px;
+}
+#navbarDropdownMenuLink{
+    color: black;
+}
+.sortBtn:hover{
+    background-color:darkgray;
+    color: whitesmoke;
+}
